@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="603.0" prefWidth="603.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <TableView fx:id="table" layoutX="14.0" layoutY="21.0" prefHeight="554.0" prefWidth="300.0">
+            <columns>
+                <TableColumn fx:id="lp_column" prefWidth="28.199995040893555" text="Lp." />
+                <TableColumn fx:id="player_column" prefWidth="112.60001373291016" text="Gracz" />
+                <TableColumn fx:id="score_column" prefWidth="77.0" text="Punkty" />
+                <TableColumn fx:id="life_column" prefWidth="77.0" text="Szanse" />
+            </columns>
+        </TableView>
+        <VBox layoutX="333.0" layoutY="21.0" prefHeight="554.0" prefWidth="250.0">
+            <children>
+                <Pane prefHeight="268.0" prefWidth="250.0">
+                    <children>
+                        <TextArea fx:id="questionArea" prefHeight="253.0" prefWidth="250.0" />
+                    </children>
+                </Pane>
+                <HBox prefHeight="248.0" prefWidth="250.0">
+                    <children>
+                        <VBox prefHeight="136.0" prefWidth="53.0">
+                            <children>
+                                <RadioButton fx:id="checkA" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="A" />
+                                <RadioButton fx:id="checkB" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="B" />
+                                <RadioButton fx:id="checkC" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="C" />
+                                <RadioButton fx:id="checkD" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="D" />
+                            </children>
+                        </VBox>
+                        <VBox prefHeight="218.0" prefWidth="198.0">
+                            <children>
+                                <Label fx:id="labelA" prefHeight="25.0" prefWidth="220.0" />
+                                <Label fx:id="labelB" prefHeight="25.0" prefWidth="220.0" />
+                                <Label fx:id="labelC" prefHeight="25.0" prefWidth="220.0" />
+                                <Label fx:id="labelD" prefHeight="25.0" prefWidth="220.0" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <Button fx:id="enterButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="250.0" text="Zatwierdź" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

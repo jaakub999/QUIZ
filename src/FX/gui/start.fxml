@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="166.0" prefWidth="286.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutX="-3.0" layoutY="-1.0" prefHeight="166.0" prefWidth="292.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="-1.0">
+         <children>
+            <Text fill="#7c6117" fontSmoothingType="LCD" layoutX="3.0" layoutY="70.0" stroke="#2f2f31" strokeType="OUTSIDE" strokeWidth="0.0" text="QUIZ" textAlignment="CENTER" wrappingWidth="286.0">
+               <font>
+                  <Font name="Gill Sans MT" size="58.0" />
+               </font>
+            </Text>
+            <Button fx:id="startButton" layoutX="81.0" layoutY="95.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="131.0" text="Start" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

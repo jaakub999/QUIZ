@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="402.0" prefWidth="514.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutY="1.0" prefHeight="402.0" prefWidth="514.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+         <children>
+             <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="MULTIPLY" fill="RED" height="108.0" layoutX="14.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="487.0" />
+            <Text layoutX="25.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Podaj ilość szans, jaka będzie przysługiwała graczom!" wrappingWidth="463.13672065734863">
+               <font>
+                  <Font name="System Bold Italic" size="21.0" />
+               </font></Text>
+             <Button fx:id="backButton" layoutX="14.0" layoutY="360.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="112.0" text="Wróć" />
+             <Button fx:id="nextButton" layoutX="381.0" layoutY="360.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="112.0" text="Dalej" />
+            <Spinner fx:id="lifeSpinner" layoutX="13.0" layoutY="200.0" prefHeight="30.0" prefWidth="487.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
