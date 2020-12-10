@@ -13,4 +13,8 @@ public class PlayerContainer {
         Player player = new Player(nickname);
         players_list.put(nickname, player);
     }
+
+    public void removePlayer(String nickname) {
+        players_list.remove(nickname);
+    }
 }

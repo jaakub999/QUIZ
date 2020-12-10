@@ -2,22 +2,23 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="402.0" prefWidth="514.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainPane" prefHeight="700.0" prefWidth="1300.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutY="1.0" prefHeight="402.0" prefWidth="514.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
-         <children>
-             <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="MULTIPLY" fill="RED" height="108.0" layoutX="14.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="487.0" />
-            <Text layoutX="25.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Podaj ilość szans, jaka będzie przysługiwała graczom!" wrappingWidth="463.13672065734863">
-               <font>
-                  <Font name="System Bold Italic" size="21.0" />
-               </font></Text>
-             <Button fx:id="backButton" layoutX="14.0" layoutY="360.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="112.0" text="Wróć" />
-             <Button fx:id="nextButton" layoutX="381.0" layoutY="360.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="112.0" text="Dalej" />
-            <Spinner fx:id="lifeSpinner" layoutX="13.0" layoutY="200.0" prefHeight="30.0" prefWidth="487.0" />
-         </children>
-      </Pane>
+       <Button fx:id="backButton" layoutX="14.0" layoutY="634.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="Wróć" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="14.0">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+       <Button fx:id="nextButton" layoutX="1066.0" layoutY="634.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="Dalej" AnchorPane.bottomAnchor="26.0" AnchorPane.rightAnchor="14.0">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Spinner fx:id="lifeSpinner" editable="true" layoutX="353.0" layoutY="336.0" prefHeight="39.0" prefWidth="593.0" AnchorPane.leftAnchor="353.0" AnchorPane.rightAnchor="353.4" />
+      <Text fx:id="text" layoutX="256.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Podaj ilość szans, jaka będzie przysługiwała graczom!" textAlignment="CENTER" wrappingWidth="787.3999999999999" AnchorPane.leftAnchor="255.39999999999986" AnchorPane.rightAnchor="256.60000000000014">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

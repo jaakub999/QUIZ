@@ -2,8 +2,6 @@ package FX;
 
 import api.PlayerContainer;
 import api.QuestionContainer;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,7 +14,6 @@ import java.util.ResourceBundle;
 
 public class StartController implements Initializable {
     public final Stage stage;
-    private final ObservableList<PlayersList> player_data;
     public PlayerContainer players;
     public QuestionContainer questions;
     @FXML private Button startButton;
@@ -26,7 +23,6 @@ public class StartController implements Initializable {
         questions = new QuestionContainer();
         stage = new Stage();
         stage.setTitle("QUIZ");
-        player_data = FXCollections.observableArrayList();
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("gui/start.fxml"));
@@ -45,7 +41,7 @@ public class StartController implements Initializable {
 
     private void openLayout() {
         stage.close();
-        InitPlayersController init = new InitPlayersController(stage, players, player_data, questions);
+        InitPlayersController init = new InitPlayersController(stage, players, questions);
         stage.show();
     }
 }

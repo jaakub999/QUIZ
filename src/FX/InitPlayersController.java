@@ -1,19 +1,22 @@
 package FX;
 
+import api.Player;
 import api.PlayerContainer;
 import api.QuestionContainer;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class InitPlayersController implements Initializable {
     public final Stage stage;
@@ -24,18 +27,19 @@ public class InitPlayersController implements Initializable {
     @FXML private Button addButton;
     @FXML private Button resetButton;
     @FXML private Button nextButton;
+    @FXML private Button removeButton;
     @FXML private TableView<PlayersList> table;
     @FXML private TableColumn<PlayersList, String> player_column;
+    @FXML private Label errorLabel;
 
     public InitPlayersController(Stage stage,
                                  PlayerContainer players,
-                                 ObservableList<PlayersList> player_data,
                                  QuestionContainer questions)
     {
         this.stage = stage;
         this.players = players;
-        this.player_data = player_data;
         this.questions = questions;
+        player_data = FXCollections.observableArrayList();
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("gui/players.fxml"));
@@ -49,14 +53,22 @@ public class InitPlayersController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        player_column.setCellValueFactory(new PropertyValueFactory<PlayersList, String>("player"));
-        table.setEditable(true);
+        Set<Map.Entry<String, Player>> entrySet = players.players_list.entrySet();
+        for (Map.Entry<String, Player> entry: entrySet)
+            player_data.add(new PlayersList(entry.getKey()));
+
+        player_column.setCellValueFactory(cellData -> cellData.getValue().playerProperty());
         player_column.setCellFactory(TextFieldTableCell.forTableColumn());
         table.setItems(player_data);
 
-        addButton.setOnAction(event -> addData());
         resetButton.setOnAction(event -> reset());
+        removeButton.setOnAction(event -> removeData());
         nextButton.setOnAction(event -> openLayout());
+        addButton.setOnAction(event -> addData());
+
+        addButton.setTooltip(new Tooltip("Dodaj nowego gracza"));
+        resetButton.setTooltip(new Tooltip("Usuń wszystkich graczy"));
+        removeButton.setTooltip(new Tooltip("Usuń wybranego gracza"));
     }
 
     private void addData() {
@@ -68,14 +80,20 @@ public class InitPlayersController implements Initializable {
             PlayersList item = new PlayersList(player_nickname);
             player_data.add(item);
             table.setItems(player_data);
+
+            InitPlayersController refresh = new InitPlayersController(stage, players, questions);
         }
 
-        else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("QUIZ Information Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText("Najpierw podaj nick gracza!");
-            alert.showAndWait();
+        else
+            errorLabel.setText("Nie podałeś nicku gracza!");
+    }
+
+    private void removeData() {
+        PlayersList data = table.getSelectionModel().getSelectedItem();
+
+        if (data != null) {
+            players.removePlayer(data.getPlayer());
+            InitPlayersController refresh = new InitPlayersController(stage, players, questions);
         }
     }
 
@@ -83,20 +101,16 @@ public class InitPlayersController implements Initializable {
         players.players_list.clear();
         player_data.clear();
         table.setItems(player_data);
+        errorLabel.setText(null);
     }
 
     private void openLayout() {
         InitLifesController controller;
 
-        if (players.players_list.size() < 1) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("QUIZ Information Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText("Musisz dodać przynajmniej jednego gracza, aby kontynuować!");
-            alert.showAndWait();
-        }
+        if (players.players_list.size() < 1)
+            errorLabel.setText("Musisz dodać przynajmniej jednego gracza, aby móc kontynuować!");
 
         else
-            controller = new InitLifesController(stage, players, player_data, questions);
+            controller = new InitLifesController(stage, players, questions);
     }
 }

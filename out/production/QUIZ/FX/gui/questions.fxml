@@ -2,61 +2,114 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="402.0" prefWidth="514.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainPane" prefHeight="700.0" prefWidth="1300.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane prefHeight="402.0" prefWidth="515.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Text fx:id="text" layoutX="256.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wprowadź pytania, ich warianty odpowiedzi i przydziel punkty!" textAlignment="CENTER" wrappingWidth="787.3999999999999" AnchorPane.leftAnchor="256.0" AnchorPane.rightAnchor="256.60000000000014">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Text>
+      <HBox layoutX="493.0" layoutY="267.0" prefHeight="194.0" prefWidth="303.0">
          <children>
-            <Text layoutX="28.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Teraz podaj pytania, warianty odpowiedzi i przydziel punkty!" wrappingWidth="432.0322570800781">
+            <VBox prefHeight="194.0" prefWidth="70.0">
+               <children>
+                  <RadioButton fx:id="checkA" mnemonicParsing="false" prefHeight="42.0" prefWidth="55.0" text="A">
+                     <font>
+                        <Font size="18.0" />
+                     </font></RadioButton>
+                  <RadioButton fx:id="checkB" mnemonicParsing="false" prefHeight="42.0" prefWidth="55.0" text="B">
+                     <font>
+                        <Font size="18.0" />
+                     </font></RadioButton>
+                  <RadioButton fx:id="checkC" mnemonicParsing="false" prefHeight="42.0" prefWidth="55.0" text="C">
+                     <font>
+                        <Font size="18.0" />
+                     </font></RadioButton>
+                  <RadioButton fx:id="checkD" mnemonicParsing="false" prefHeight="40.0" prefWidth="55.0" text="D">
+                     <font>
+                        <Font size="18.0" />
+                     </font></RadioButton>
+               </children>
+            </VBox>
+            <VBox prefHeight="166.0" prefWidth="264.0">
+               <children>
+                  <TextField fx:id="textFieldA" prefHeight="40.0" prefWidth="247.0" promptText="Wariant A">
+                     <font>
+                        <Font size="18.0" />
+                     </font></TextField>
+                  <TextField fx:id="textFieldB" prefHeight="40.0" prefWidth="247.0" promptText="Wariant B">
+                     <font>
+                        <Font size="18.0" />
+                     </font></TextField>
+                  <TextField fx:id="textFieldC" prefHeight="40.0" prefWidth="247.0" promptText="Wariant C">
+                     <font>
+                        <Font size="18.0" />
+                     </font></TextField>
+                  <TextField fx:id="textFieldD" prefHeight="40.0" prefWidth="247.0" promptText="Wariant D">
+                     <font>
+                        <Font size="18.0" />
+                     </font></TextField>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Button fx:id="backButton" layoutX="14.0" layoutY="634.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="Wróć" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="14.0">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button fx:id="nextButton" layoutX="1066.0" layoutY="634.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="Dalej" AnchorPane.bottomAnchor="26.0" AnchorPane.rightAnchor="14.0">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <TextArea fx:id="textQ" layoutX="66.0" layoutY="267.0" prefHeight="253.0" prefWidth="370.0" promptText="Treść pytania" AnchorPane.bottomAnchor="179.4" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="863.6">
+         <font>
+            <Font size="18.0" />
+         </font></TextArea>
+      <HBox layoutX="66.0" layoutY="545.0" prefHeight="26.0" prefWidth="230.0">
+         <children>
+            <Label prefHeight="27.0" prefWidth="105.0" text="Ilość pytań:">
                <font>
-                  <Font name="System Bold Italic" size="21.0" />
-               </font></Text>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="MULTIPLY" fill="#d6ca65" height="66.0" layoutX="20.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="477.0" />
-            <Button fx:id="backButton" layoutX="14.0" layoutY="360.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="112.0" text="Wróć" />
-            <Button fx:id="nextButton" layoutX="381.0" layoutY="360.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="112.0" text="Dalej" />
-            <TextArea fx:id="textQ" layoutX="21.0" layoutY="101.0" prefHeight="210.0" prefWidth="205.0" promptText="Treść pytania" />
-            <HBox layoutX="259.0" layoutY="101.0" prefHeight="102.0" prefWidth="230.0">
-               <children>
-                  <VBox prefHeight="100.0" prefWidth="40.0">
-                     <children>
-                        <RadioButton fx:id="checkA" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="A" />
-                        <RadioButton fx:id="checkB" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="B" />
-                        <RadioButton fx:id="checkC" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="C" />
-                        <RadioButton fx:id="checkD" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="D" />
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="102.0" prefWidth="192.0">
-                     <children>
-                        <TextField fx:id="textFieldA" promptText="Wariant A" />
-                        <TextField fx:id="textFieldB" promptText="Wariant B" />
-                        <TextField fx:id="textFieldC" promptText="Wariant C" />
-                        <TextField fx:id="textFieldD" promptText="Wariant D" />
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <HBox layoutX="21.0" layoutY="321.0" prefHeight="27.0" prefWidth="136.0">
-               <children>
-                  <Label prefHeight="27.0" prefWidth="105.0" text="Ilość pytań:">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font></Label>
-                  <Label fx:id="number" prefHeight="27.0" prefWidth="34.0" text="0" textFill="RED">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font></Label>
-               </children>
-            </HBox>
-            <HBox layoutX="259.0" layoutY="223.0" prefHeight="26.0" prefWidth="230.0">
-               <children>
-                  <Label prefHeight="25.0" prefWidth="65.0" text="Punkty:" />
-                  <Spinner fx:id="pointsSpinner" prefHeight="26.0" prefWidth="170.0" />
-               </children>
-            </HBox>
-            <Button fx:id="resetButton" layoutX="381.0" layoutY="271.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Resetuj" />
-            <Button fx:id="addButton" layoutX="244.0" layoutY="271.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Dodaj" />
-         </children></Pane>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="number" prefHeight="27.0" prefWidth="34.0" text="0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <Button fx:id="resetButton" layoutX="863.0" layoutY="332.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="159.0" text="Resetuj">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button fx:id="addButton" layoutX="863.0" layoutY="267.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="159.0" text="Dodaj">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Label fx:id="errorLabel" layoutX="8.0" layoutY="5.0" prefHeight="18.0" prefWidth="488.0" AnchorPane.leftAnchor="8.0">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <HBox layoutX="493.0" layoutY="454.0" prefHeight="40.0" prefWidth="303.0">
+         <children>
+            <Label prefHeight="35.0" prefWidth="103.0" text="Punkty:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Spinner fx:id="pointsSpinner" editable="true" prefHeight="35.0" prefWidth="194.0" />
+         </children>
+      </HBox>
+      <CheckBox fx:id="imageCheck" layoutX="863.0" layoutY="404.0" mnemonicParsing="false" text="Pytanie obrazkowe">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </CheckBox>
+      <Button fx:id="chooseImageButton" layoutX="863.0" layoutY="449.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="159.0" text="Wybierz plik" />
+      <Label fx:id="pathLabel" layoutX="863.0" layoutY="485.0" prefHeight="18.0" prefWidth="159.0" />
    </children>
 </AnchorPane>

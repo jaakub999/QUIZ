@@ -3,7 +3,6 @@ package FX;
 import api.Player;
 import api.PlayerContainer;
 import api.QuestionContainer;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,19 +21,16 @@ public class InitLifesController implements Initializable {
     public final Stage stage;
     public PlayerContainer players;
     public QuestionContainer questions;
-    private final ObservableList<PlayersList> player_data;
     @FXML private Spinner<Integer> lifeSpinner;
     @FXML private Button nextButton;
     @FXML private Button backButton;
 
     public InitLifesController(Stage stage,
                                PlayerContainer players,
-                               ObservableList<PlayersList> player_data,
                                QuestionContainer questions)
     {
         this.stage = stage;
         this.players = players;
-        this.player_data = player_data;
         this.questions = questions;
 
         try {
@@ -62,10 +58,10 @@ public class InitLifesController implements Initializable {
         for (Map.Entry<String, Player> entry: entrySet)
             entry.getValue().lifes = lifeSpinner.getValue();
 
-        InitQuestionsController controller = new InitQuestionsController(stage, players, player_data, questions);
+        InitQuestionsController controller = new InitQuestionsController(stage, players, questions);
     }
 
     private void backToPreviousLayout() {
-        InitPlayersController controller = new InitPlayersController(stage, players, player_data, questions);
+        InitPlayersController controller = new InitPlayersController(stage, players, questions);
     }
 }

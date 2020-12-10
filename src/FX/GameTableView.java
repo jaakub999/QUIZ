@@ -7,13 +7,13 @@ public class GameTableView {
     final private SimpleIntegerProperty lp;
     final private SimpleStringProperty nickname;
     final private SimpleIntegerProperty score;
-    final private SimpleIntegerProperty lifebuoy;
+    final private SimpleIntegerProperty lifes;
 
     public GameTableView(int lp, String nickname, int score, int lifebuoy) {
         this.lp = new SimpleIntegerProperty(lp);
         this.nickname = new SimpleStringProperty(nickname);
         this.score = new SimpleIntegerProperty(score);
-        this.lifebuoy = new SimpleIntegerProperty(lifebuoy);
+        this.lifes = new SimpleIntegerProperty(lifebuoy);
     }
 
     public int getLp() {
@@ -40,11 +40,11 @@ public class GameTableView {
         return score;
     }
 
-    public int getLifebuoy() {
-        return lifebuoy.get();
+    public int getLifes() {
+        return lifes.get();
     }
 
-    public SimpleIntegerProperty lifebuoyProperty() {
-        return lifebuoy;
+    public SimpleIntegerProperty lifesProperty() {
+        return lifes;
     }
 }

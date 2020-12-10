@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="secondPane" prefHeight="150.0" prefWidth="315.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Text fx:id="dialogText2" layoutX="4.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOBRZE" textAlignment="CENTER" wrappingWidth="310.00000286102295">
+            <font>
+                <Font name="System Bold" size="36.0" />
+            </font>
+        </Text>
+        <Button fx:id="dialogButton" layoutX="119.0" layoutY="138.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="79.0" text="OK" AnchorPane.bottomAnchor="14.600000000000001">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Label fx:id="correctAnswer" layoutX="24.0" layoutY="69.0" prefHeight="18.0" prefWidth="40.0" />
+    </children>
+</AnchorPane>
