@@ -64,6 +64,11 @@ public class InitQuestionsController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1);
         pointsSpinner.setValueFactory(valueFactory);
+        pointsSpinner.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue)
+                pointsSpinner.increment(0);
+        });
+
 
         checkA.setToggleGroup(group);
         checkB.setToggleGroup(group);
