@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="secondPane" prefHeight="262.0" prefWidth="469.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Text fx:id="dialogText1" layoutX="79.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="KONIEC GRY" textAlignment="CENTER" wrappingWidth="310.00000286102295">
+            <font>
+                <Font name="System Bold" size="36.0" />
+            </font>
+        </Text>
+        <Button fx:id="dialogButton" layoutX="195.0" layoutY="207.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="79.0" text="OK" AnchorPane.bottomAnchor="24.599999999999994">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font></Button>
+        <HBox layoutX="46.0" layoutY="99.0" prefHeight="90.0" prefWidth="366.0">
+            <children>
+                <VBox prefHeight="100.0" prefWidth="99.0">
+                    <children>
+                        <Label fx:id="label11" prefHeight="26.0" prefWidth="98.0">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="label12" prefHeight="26.0" prefWidth="98.0">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="label13" prefHeight="26.0" prefWidth="98.0">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+                <VBox prefHeight="100.0" prefWidth="142.0">
+                    <children>
+                        <Label fx:id="label21" prefHeight="26.0" prefWidth="148.0">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="label22" prefHeight="26.0" prefWidth="141.0">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="label23" prefHeight="26.0" prefWidth="149.0">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+                <VBox prefHeight="100.0" prefWidth="124.0">
+                    <children>
+                        <Label fx:id="label31" prefHeight="26.0" prefWidth="122.0" textFill="WHITE">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="label32" prefHeight="26.0" prefWidth="122.0" textFill="WHITE">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="label33" prefHeight="26.0" prefWidth="121.0" textFill="WHITE">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

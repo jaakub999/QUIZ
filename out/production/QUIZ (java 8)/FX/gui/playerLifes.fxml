@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="mainPane" prefHeight="700.0" prefWidth="1300.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Button fx:id="backButton" layoutX="14.0" layoutY="634.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="Wróć" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="14.0">
+            <font>
+                <Font size="18.0" />
+            </font></Button>
+        <Button fx:id="nextButton" layoutX="1066.0" layoutY="634.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="Dalej" AnchorPane.bottomAnchor="26.0" AnchorPane.rightAnchor="14.0">
+            <font>
+                <Font size="18.0" />
+            </font></Button>
+        <Spinner fx:id="lifeSpinner" editable="true" layoutX="353.0" layoutY="336.0" prefHeight="39.0" prefWidth="593.0" AnchorPane.leftAnchor="353.0" AnchorPane.rightAnchor="353.4" AnchorPane.topAnchor="336.0" />
+        <Text fx:id="text" layoutX="256.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Podaj ilość szans, jaka będzie przysługiwała graczom!" textAlignment="CENTER" wrappingWidth="787.3999999999999" AnchorPane.leftAnchor="255.39999999999986" AnchorPane.rightAnchor="256.60000000000014" AnchorPane.topAnchor="58.15234375">
+            <font>
+                <Font name="System Bold" size="36.0" />
+            </font>
+        </Text>
+      <Text fill="WHITE" layoutX="365.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Min 1, Max 100" AnchorPane.leftAnchor="365.0" AnchorPane.topAnchor="310.9716796875">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
+    </children>
+</AnchorPane>

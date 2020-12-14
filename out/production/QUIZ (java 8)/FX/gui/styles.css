@@ -1,0 +1,196 @@
+#mainPane {
+    -fx-background-color: #161616;
+}
+
+#secondPane {
+    -fx-background-color: #161616;
+    -fx-border-color: #ff9900;
+}
+
+#text {
+    -fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, #ffc200 0%, #fd7024 50%);
+}
+
+#dialogText1 {
+    -fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, #ff0000 0%, #ff9900 50%);
+    -fx-effect: dropshadow( three-pass-box, #ff8c00, 10.0, 0.0, 0.0, 0.0);
+}
+
+#dialogText2 {
+    -fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, #75ff00 0%, #ffd600 50%);
+    -fx-effect: dropshadow( three-pass-box, #8aff52, 10.0, 0.0, 0.0, 0.0);
+}
+
+.button {
+    -fx-background-color: #ff9900;
+    -fx-text-fill: #000000;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-background-radius: 1em;
+}
+
+.button:hover {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-cursor: hand;
+}
+
+.button:pressed {
+    -fx-background-color: #e0e0e0;
+}
+
+#startButton {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 200%, repeat, #fd7024 0%, #ffc200 50%);
+    -fx-text-fill: #000000;
+    -fx-font-size: 25;
+    -fx-font-weight: bolder;
+    -fx-background-radius: 1em;
+}
+
+#startButton:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 200%, repeat, #f5da8e 0%, #ffffff 50%);
+    -fx-text-fill: #000000;
+    -fx-cursor: hand;
+}
+
+#dialogButton {
+    -fx-background-color: #000000;
+    -fx-border-color: #ff9900;
+    -fx-text-fill: #ffffff;
+    -fx-cursor:hand;
+    -fx-background-radius: 0em;
+}
+
+#dialogButton:hover {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+}
+
+.radio-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #FFFFFF;
+    -fx-cursor: hand;
+}
+
+.check-box {
+    -fx-background-color: transparent;
+    -fx-text-fill: #FFFFFF;
+    -fx-cursor: hand;
+}
+
+.text-field {
+    -fx-border-color: #FFFFFF;
+    -fx-background-color: transparent;
+    -fx-border-radius: 20;
+    -fx-text-fill: 	#FFFFFF;
+}
+
+.text-area {
+    -fx-border-color: #ff9900;
+    -fx-text-fill: #000000;
+    -fx-font-size: 18.0;
+}
+
+.label {
+    -fx-text-fill: 	#FFFFFF;
+}
+
+#errorLabel {
+    -fx-text-fill: #ff0000;
+    -fx-font-size: 11;
+}
+
+#label11 {
+    -fx-text-fill: #dba101;
+}
+
+#label12 {
+    -fx-text-fill: #b7b7b7;
+}
+
+#label13 {
+    -fx-text-fill: #b07f5a;
+}
+
+.spinner {
+    -fx-background-color: transparent;
+    -fx-font-size: 18;
+}
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    -fx-body-color: #000000;
+    -fx-border-color: transparent;
+}
+
+.spinner .increment-arrow-button:hover,
+.spinner .decrement-arrow-button:hover {
+    -fx-body-color: #ff9900;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+}
+
+.spinner .increment-arrow-button:hover:pressed,
+.spinner .decrement-arrow-button:hover:pressed,
+.spinner .increment-arrow-button:pressed,
+.spinner .decrement-arrow-button:pressed {
+    -fx-body-color: #f6794c;
+}
+
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #ff9900;
+}
+
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background{
+    -fx-background-color: #202020;
+}
+
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: #000000;
+    -fx-text-background-color: #ff9900;
+    -fx-font-size: 18;
+}
+
+.table-view .table-cell{
+    -fx-border-color: #000000;
+    -fx-font-size: 18;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #202020;
+    -fx-text-background-color: #ff9900;
+    -fx-cursor: hand;
+}
+
+.table-row-cell {
+    -fx-background-color: #202020;
+    -fx-text-background-color: #909090;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #ff9900;
+    -fx-text-background-color: #202020;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.table-view .filler {
+    -fx-background-color: transparent;
+}
+
+.table-view .scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.table-view .scroll-bar .thumb {
+    -fx-background-color: #232323;
+}
