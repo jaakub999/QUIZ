@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="QUIZ__java_8_.jar" size="79781" download="eager" />
+    <jar href="QUIZ__java_8_.jar" size="34687" download="eager" />
   </resources>
   <jfx:javafx-desc  width="600" height="400" main-class="App"  name="QUIZ (java 8)" />
   <update check="background"/>
