@@ -8,7 +8,7 @@ public class Player {
     public Player(String nickname) {
         this.nickname = nickname;
         score = 0;
-        lifes = 0;
+        lifes = 1;
     }
 
     public void addScore(int x) {

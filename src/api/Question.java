@@ -1,10 +1,9 @@
 package api;
 
 public class Question {
-    public String text;
+    public String text, imagePath;
     public int points;
     public Answer answer;
-    public String imagePath;
 
     public Question(String text, int points, Answer answer, String imagePath) {
         this.text = text;

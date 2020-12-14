@@ -10,7 +10,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
@@ -21,6 +24,7 @@ public class InitLifesController implements Initializable {
     public final Stage stage;
     public PlayerContainer players;
     public QuestionContainer questions;
+    public Set<Map.Entry<String, Player>> entrySet;
     @FXML private Spinner<Integer> lifeSpinner;
     @FXML private Button nextButton;
     @FXML private Button backButton;
@@ -32,6 +36,7 @@ public class InitLifesController implements Initializable {
         this.stage = stage;
         this.players = players;
         this.questions = questions;
+        entrySet = players.players_list.entrySet();
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("gui/playerLifes.fxml"));
@@ -45,16 +50,21 @@ public class InitLifesController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1);
+        Map.Entry<String, Player> entry = players.players_list.entrySet().iterator().next();
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, entry.getValue().lifes);
         lifeSpinner.setValueFactory(valueFactory);
+        lifeSpinner.setTooltip(new Tooltip("> 100 = 100\n< 1 = 1"));
+        lifeSpinner.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue)
+                lifeSpinner.increment(0);
+                });
 
         backButton.setOnAction(event -> backToPreviousLayout());
         nextButton.setOnAction(event -> openLayout());
     }
 
-    private void openLayout() {
-        Set<Map.Entry<String, Player>> entrySet = players.players_list.entrySet();
 
+    private void openLayout() {
         for (Map.Entry<String, Player> entry: entrySet)
             entry.getValue().lifes = lifeSpinner.getValue();
 

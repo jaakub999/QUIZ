@@ -23,7 +23,8 @@ public class AnswerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        correctAnswer.setText(text);
+        if (text != null)
+            correctAnswer.setText("Poprawna odpowiedź to:  " + text);
 
         dialogButton.setOnAction(event -> {
             stage.close();

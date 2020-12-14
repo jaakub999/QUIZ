@@ -4,18 +4,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="secondPane" prefHeight="150.0" prefWidth="315.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Text fx:id="dialogText1" layoutX="4.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ŹLE" textAlignment="CENTER" wrappingWidth="310.00000286102295">
-         <font>
-            <Font name="System Bold" size="36.0" />
-         </font>
-      </Text>
-      <Label layoutX="14.0" layoutY="74.0" text="Poprawna odpowiedź to:" />
-      <Label fx:id="correctAnswer" layoutX="150.0" layoutY="73.0" prefHeight="18.0" prefWidth="39.0" />
-      <Button fx:id="dialogButton" layoutX="119.0" layoutY="138.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="79.0" text="OK" AnchorPane.bottomAnchor="14.600000000000001">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font></Button>
-   </children>
+<AnchorPane fx:id="secondPane" prefHeight="150.0" prefWidth="315.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Text fx:id="dialogText1" layoutX="4.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ŹLE" textAlignment="CENTER" wrappingWidth="310.00000286102295">
+            <font>
+                <Font name="System Bold" size="36.0" />
+            </font>
+        </Text>
+        <Label fx:id="correctAnswer" layoutX="11.0" layoutY="75.0" prefHeight="22.0" prefWidth="297.0" />
+        <Button fx:id="dialogButton" layoutX="119.0" layoutY="138.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="79.0" text="OK" AnchorPane.bottomAnchor="14.600000000000001">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font></Button>
+    </children>
 </AnchorPane>
