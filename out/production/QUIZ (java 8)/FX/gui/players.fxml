@@ -6,12 +6,16 @@
 
 <AnchorPane fx:id="mainPane" prefHeight="700.0" prefWidth="1300.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Text fx:id="text" layoutX="256.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Na początek powiedz, kto się z nami bawi!" textAlignment="CENTER" wrappingWidth="787.3999999999999" AnchorPane.leftAnchor="255.39999999999986" AnchorPane.rightAnchor="256.60000000000014" AnchorPane.topAnchor="58.15234375">
+        <Text fx:id="text" layoutX="256.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zainicjuj graczy, którzy będą się z nami bawić!" textAlignment="CENTER" wrappingWidth="787.3999999999999" AnchorPane.leftAnchor="255.39999999999986" AnchorPane.rightAnchor="256.60000000000014" AnchorPane.topAnchor="58.15234375">
             <font>
                 <Font name="System Bold" size="36.0" />
             </font>
         </Text>
         <Button fx:id="nextButton" layoutX="1066.0" layoutY="634.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="Dalej" AnchorPane.bottomAnchor="26.0" AnchorPane.rightAnchor="14.0">
+            <font>
+                <Font size="18.0" />
+            </font></Button>
+        <Button fx:id="backButton" layoutX="14.0" layoutY="634.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="Wróć" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="14.0">
             <font>
                 <Font size="18.0" />
             </font></Button>

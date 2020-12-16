@@ -66,6 +66,10 @@
     -fx-text-fill: #000000;
 }
 
+#exitButton:hover {
+    -fx-text-fill: #ff0000;
+}
+
 .radio-button {
     -fx-background-color: transparent;
     -fx-text-fill: #FFFFFF;
@@ -137,6 +141,43 @@
     -fx-body-color: #f6794c;
 }
 
+.combo-box-base {
+    -fx-background-color: transparent;
+    -fx-border-color: #ffffff;
+    -fx-font-size: 18;
+}
+
+.combo-box-base:hover {
+    -fx-text-fill: #ff9900;
+    -fx-cursor: hand;
+}
+
+.combo-box .list-view {
+    -fx-background-color: #000000;
+    -fx-border-color: #ffffff;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18;
+}
+
+.combo-box .combo-box-popup .list-view, .combo-box .combo-box-popup .list-cell {
+    -fx-background-color: #000000;
+    -fx-text-fill: #ffffff;
+}
+
+.combo-box .combo-box-popup .list-cell:hover {
+    -fx-text-fill: #000000;
+    -fx-background-color: #ff9900;
+    -fx-cursor: hand;
+}
+
+.combo-box .scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.combo-box .scroll-bar .thumb {
+    -fx-background-color: #232323;
+}
+
 .table-view {
     -fx-background-color: transparent;
     -fx-border-color: #ff9900;
@@ -193,4 +234,9 @@
 
 .table-view .scroll-bar .thumb {
     -fx-background-color: #232323;
+}
+
+.tooltip {
+    -fx-font-weight: normal;
+    -fx-font-size: 16;
 }
