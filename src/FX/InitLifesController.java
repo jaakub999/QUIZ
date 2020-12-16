@@ -68,7 +68,7 @@ public class InitLifesController implements Initializable {
         for (Map.Entry<String, Player> entry: entrySet)
             entry.getValue().lifes = lifeSpinner.getValue();
 
-        InitQuestionsController controller = new InitQuestionsController(stage, players, questions);
+        GameController controller = new GameController(stage, players, questions, 0);
     }
 
     private void backToPreviousLayout() {

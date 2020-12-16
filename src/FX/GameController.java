@@ -43,6 +43,7 @@ public class GameController implements Initializable {
     @FXML private Label labelD;
     @FXML private Label errorLabel;
     @FXML private Button enterButton;
+    @FXML private Button showButton;
     @FXML private ImageView imageView;
 
     public GameController(Stage stage,
@@ -75,6 +76,16 @@ public class GameController implements Initializable {
         checkC.setToggleGroup(group);
         checkD.setToggleGroup(group);
 
+        checkA.setVisible(false);
+        checkB.setVisible(false);
+        checkC.setVisible(false);
+        checkD.setVisible(false);
+
+        labelA.setVisible(false);
+        labelB.setVisible(false);
+        labelC.setVisible(false);
+        labelD.setVisible(false);
+
         initPlayers();
         initQuestion();
 
@@ -84,6 +95,20 @@ public class GameController implements Initializable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        });
+
+        showButton.setOnAction(event -> {
+            checkA.setVisible(true);
+            checkB.setVisible(true);
+            checkC.setVisible(true);
+            checkD.setVisible(true);
+
+            labelA.setVisible(true);
+            labelB.setVisible(true);
+            labelC.setVisible(true);
+            labelD.setVisible(true);
+
+            showButton.setVisible(false);
         });
 
         enterButton.setTooltip(new Tooltip("Zatwierdź i sprawdź odpowiedź"));

@@ -27,6 +27,7 @@ public class InitPlayersController implements Initializable {
     @FXML private Button addButton;
     @FXML private Button resetButton;
     @FXML private Button nextButton;
+    @FXML private Button backButton;
     @FXML private Button removeButton;
     @FXML private TableView<PlayersList> table;
     @FXML private TableColumn<PlayersList, String> player_column;
@@ -63,8 +64,9 @@ public class InitPlayersController implements Initializable {
 
         resetButton.setOnAction(event -> reset());
         removeButton.setOnAction(event -> removeData());
-        nextButton.setOnAction(event -> openLayout());
         addButton.setOnAction(event -> addData());
+        nextButton.setOnAction(event -> openLayout());
+        backButton.setOnAction(event -> backToPreviousLayout());
 
         addButton.setTooltip(new Tooltip("Dodaj nowego gracza"));
         resetButton.setTooltip(new Tooltip("Usuń wszystkich graczy"));
@@ -112,5 +114,9 @@ public class InitPlayersController implements Initializable {
 
         else
             controller = new InitLifesController(stage, players, questions);
+    }
+
+    private void backToPreviousLayout() {
+        InitQuestionsController controller = new InitQuestionsController(stage, players, questions);
     }
 }

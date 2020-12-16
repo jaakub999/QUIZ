@@ -1,10 +1,10 @@
 package FX;
 
-import api.Answer;
-import api.PlayerContainer;
-import api.QuestionContainer;
+import api.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,6 +21,7 @@ public class InitQuestionsController implements Initializable {
     public final Stage stage;
     public PlayerContainer players;
     public QuestionContainer questions;
+    private final ObservableList<String> questionID;
     private final ToggleGroup group = new ToggleGroup();
     @FXML private TextArea textQ;
     @FXML private TextField textFieldA;
@@ -32,11 +33,13 @@ public class InitQuestionsController implements Initializable {
     @FXML private RadioButton checkC;
     @FXML private RadioButton checkD;
     @FXML private Button addButton;
-    @FXML private Button backButton;
     @FXML private Button resetButton;
+    @FXML private Button removeButton;
     @FXML private Button nextButton;
     @FXML private Button chooseImageButton;
+    @FXML private Button editButton;
     @FXML private Spinner<Integer> pointsSpinner;
+    @FXML private ComboBox<String> questionComboBox;
     @FXML private Label number;
     @FXML private Label pathLabel;
     @FXML private Label errorLabel;
@@ -49,6 +52,7 @@ public class InitQuestionsController implements Initializable {
         this.stage = stage;
         this.players = players;
         this.questions = questions;
+        questionID = FXCollections.observableArrayList();
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("gui/questions.fxml"));
@@ -69,7 +73,6 @@ public class InitQuestionsController implements Initializable {
                 pointsSpinner.increment(0);
         });
 
-
         checkA.setToggleGroup(group);
         checkB.setToggleGroup(group);
         checkC.setToggleGroup(group);
@@ -79,14 +82,30 @@ public class InitQuestionsController implements Initializable {
         number.setText(String.valueOf(questions.questions_list.size()));
 
         addButton.setOnAction(event -> addData());
-        backButton.setOnAction(event -> backToPreviousLayout());
         resetButton.setOnAction(event -> reset());
         nextButton.setOnAction(event -> openLayout());
+        removeButton.setOnAction(event -> removeData());
         chooseImageButton.setOnAction(event -> chooseImage());
+        editButton.setOnAction(event -> editData());
 
         addButton.setTooltip(new Tooltip("Dodaj nowe pytanie"));
         resetButton.setTooltip(new Tooltip("Usuń wszystkie pytania"));
+        removeButton.setTooltip(new Tooltip("Usuń wybrane pytanie"));
+        editButton.setTooltip(new Tooltip("Nadpisz wybrane pytanie"));
         chooseImageButton.setVisible(false);
+        editButton.setVisible(false);
+
+        for (int i = 0; i < questions.questions_list.size(); i++) {
+            if (questions.questions_list.get(i).text.length() < 12)
+                questionID.add(i + 1 + ". " + questions.questions_list.get(i).text);
+
+            else
+                questionID.add((i + 1 + ". " + questions.questions_list.get(i).text).substring(0, 12) + "...");
+        }
+
+        questionComboBox.setItems(questionID);
+        questionComboBox.setOnAction(event -> chooseQuestion());
+        questionComboBox.setTooltip(new Tooltip("Wybierz jedno z utworzonych pytań"));
 
         imageCheck.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -146,6 +165,89 @@ public class InitQuestionsController implements Initializable {
         }
     }
 
+    private void removeData() {
+        if (!questionComboBox.getSelectionModel().isEmpty()) {
+            int index = questionComboBox.getSelectionModel().getSelectedIndex();
+            questions.removeQuestion(index);
+        }
+
+        InitQuestionsController refresh = new InitQuestionsController(stage, players, questions);
+    }
+
+    private void editData() {
+        int index = questionComboBox.getSelectionModel().getSelectedIndex();
+        int points = pointsSpinner.getValue();
+        String text = textQ.getText().replaceAll("\n", System.getProperty("line.separator"));
+        String A = textFieldA.getText();
+        String B = textFieldB.getText();
+        String C = textFieldC.getText();
+        String D = textFieldD.getText();
+        Answer answer = new Answer(A, B, C, D);
+
+        if (checkA.isSelected())
+            answer.setA();
+
+        else if (checkB.isSelected())
+            answer.setB();
+
+        else if (checkC.isSelected())
+            answer.setC();
+
+        else if (checkD.isSelected())
+            answer.setD();
+
+        if (text.equals("") || A.equals("") || B.equals("") || C.equals("") || D.equals(""))
+            errorLabel.setText("Żadne pole nie może być puste!");
+
+        else {
+            if (imageCheck.isSelected()) {
+                if (!pathLabel.getText().equals("")) {
+                    questions.editQuestion(text, points, answer, null, index);
+                    InitQuestionsController refresh = new InitQuestionsController(stage, players, questions);
+                }
+
+                else
+                    errorLabel.setText("Nie wybrałeś obrazka!");
+            }
+
+            else {
+                questions.editQuestion(text, points, answer, null, index);
+                InitQuestionsController refresh = new InitQuestionsController(stage, players, questions);
+            }
+        }
+    }
+
+    private void chooseQuestion() {
+        int index = questionComboBox.getSelectionModel().getSelectedIndex();
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, questions.questions_list.get(index).points);
+        pointsSpinner.setValueFactory(valueFactory);
+        textQ.setText(questions.questions_list.get(index).text);
+        textFieldA.setText(questions.questions_list.get(index).answer.A);
+        textFieldB.setText(questions.questions_list.get(index).answer.B);
+        textFieldC.setText(questions.questions_list.get(index).answer.C);
+        textFieldD.setText(questions.questions_list.get(index).answer.D);
+        editButton.setVisible(true);
+
+        if (questions.questions_list.get(index).answer.a)
+            checkA.setSelected(true);
+
+        else if (questions.questions_list.get(index).answer.b)
+            checkB.setSelected(true);
+
+        else if (questions.questions_list.get(index).answer.c)
+            checkC.setSelected(true);
+
+        else if (questions.questions_list.get(index).answer.d)
+            checkD.setSelected(true);
+
+        if (questions.questions_list.get(index).imagePath != null) {
+            imageCheck.setSelected(true);
+            pathLabel.setText(questions.questions_list.get(index).imagePath);
+        }
+
+        errorLabel.setText(null);
+    }
+
     private void chooseImage() {
         FileChooser fc = new FileChooser();
         FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png");
@@ -158,20 +260,16 @@ public class InitQuestionsController implements Initializable {
 
     private void reset() {
         questions.questions_list.clear();
-        number.setText("0");
+        InitQuestionsController refresh = new InitQuestionsController(stage, players, questions);
     }
 
     private void openLayout() {
-        GameController controller;
+        InitPlayersController controller;
 
         if (questions.questions_list.size() < 1)
             errorLabel.setText("Musisz dodać przynajmniej jedno pytanie, aby móc kontynuować!");
 
         else
-            controller = new GameController(stage, players, questions, 0);
-    }
-
-    private void backToPreviousLayout() {
-        InitLifesController controller = new InitLifesController(stage, players, questions);
+            controller = new InitPlayersController(stage, players, questions);
     }
 }

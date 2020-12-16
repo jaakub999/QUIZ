@@ -14,4 +14,13 @@ public class QuestionContainer {
         Question question = new Question(text, points, answer, path);
         questions_list.add(question);
     }
+
+    public void editQuestion(String text, int points, Answer answer, String path, int index) {
+        Question question = new Question(text, points, answer, path);
+        questions_list.set(index, question);
+    }
+
+    public void removeQuestion(int index) {
+        questions_list.remove(questions_list.get(index));
+    }
 }
