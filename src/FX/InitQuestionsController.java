@@ -13,7 +13,9 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -38,6 +40,8 @@ public class InitQuestionsController implements Initializable {
     @FXML private Button nextButton;
     @FXML private Button chooseImageButton;
     @FXML private Button editButton;
+    @FXML private Button saveButton;
+    @FXML private Button loadButton;
     @FXML private Spinner<Integer> pointsSpinner;
     @FXML private ComboBox<String> questionComboBox;
     @FXML private Label number;
@@ -87,6 +91,8 @@ public class InitQuestionsController implements Initializable {
         removeButton.setOnAction(event -> removeData());
         chooseImageButton.setOnAction(event -> chooseImage());
         editButton.setOnAction(event -> editData());
+        saveButton.setOnAction(event -> saveData());
+        loadButton.setOnAction(event -> loadData());
 
         addButton.setTooltip(new Tooltip("Dodaj nowe pytanie"));
         resetButton.setTooltip(new Tooltip("Usuń wszystkie pytania"));
@@ -246,6 +252,38 @@ public class InitQuestionsController implements Initializable {
         }
 
         errorLabel.setText(null);
+    }
+
+    private void saveData() {
+        saveController output = new saveController(questions);
+        output.stage.showAndWait();
+    }
+
+    private void loadData() {
+        FileChooser fc = new FileChooser();
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Binary Files", "*.bin");
+        fc.getExtensionFilters().add(filter);
+        File selectedFile = fc.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            String filepath = selectedFile.getAbsolutePath();
+            QuestionContainer setOfQuestions = (QuestionContainer) readObjectFromFile(filepath);
+            InitQuestionsController refresh = new InitQuestionsController(stage, players, setOfQuestions);
+        }
+    }
+
+    private Object readObjectFromFile(String filepath) {
+        try {
+            FileInputStream fileIn = new FileInputStream(filepath);
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+            Object o = objectIn.readObject();
+            objectIn.close();
+            return o;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private void chooseImage() {

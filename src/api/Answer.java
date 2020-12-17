@@ -1,6 +1,8 @@
 package api;
 
-public class Answer {
+import java.io.Serializable;
+
+public class Answer implements Serializable {
     public boolean a, b, c, d;
     public String A, B, C, D;
 

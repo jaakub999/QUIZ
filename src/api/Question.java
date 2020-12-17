@@ -1,6 +1,8 @@
 package api;
 
-public class Question {
+import java.io.Serializable;
+
+public class Question implements Serializable {
     public String text, imagePath;
     public int points;
     public Answer answer;

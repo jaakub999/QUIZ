@@ -1,9 +1,10 @@
 package api;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionContainer {
+public class QuestionContainer implements Serializable {
     public List<Question> questions_list;
 
     public QuestionContainer() {
