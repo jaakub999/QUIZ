@@ -57,13 +57,18 @@
     -fx-background-color: #000000;
     -fx-border-color: #ff9900;
     -fx-text-fill: #ffffff;
-    -fx-cursor:hand;
+    -fx-font-weight: normal;
     -fx-background-radius: 0em;
 }
 
 #dialogButton:hover {
     -fx-background-color: #ffffff;
     -fx-text-fill: #000000;
+    -fx-cursor:hand;
+}
+
+#dialogButton:pressed {
+    -fx-background-color: #e0e0e0;
 }
 
 #exitButton:hover {
