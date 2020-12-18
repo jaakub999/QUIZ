@@ -256,6 +256,19 @@ public class GameController implements Initializable {
     }
 
     private void correctAnswer() throws Exception {
+        enterButton.setDisable(true);
+        table.setDisable(true);
+        checkA.setDisable(true);
+        checkB.setDisable(true);
+        checkC.setDisable(true);
+        checkD.setDisable(true);
+        labelA.setDisable(true);
+        labelB.setDisable(true);
+        labelC.setDisable(true);
+        labelD.setDisable(true);
+        questionArea.setDisable(true);
+        imageView.setDisable(true);
+
         AnswerController controller = new AnswerController(null);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("gui/goodDialog.fxml"));
         loader.setController(controller);
@@ -264,13 +277,25 @@ public class GameController implements Initializable {
     }
 
     private void wrongAnswer() throws Exception {
+        enterButton.setDisable(true);
+        table.setDisable(true);
+        checkA.setDisable(true);
+        checkB.setDisable(true);
+        checkC.setDisable(true);
+        checkD.setDisable(true);
+        labelA.setDisable(true);
+        labelB.setDisable(true);
+        labelC.setDisable(true);
+        labelD.setDisable(true);
+        questionArea.setDisable(true);
+        imageView.setDisable(true);
         String correct = null;
 
         if (question.questions_list.get(loopCounter).answer.a)
             correct = labelA.getText();
 
         else if (question.questions_list.get(loopCounter).answer.b)
-            correct = labelA.getText();
+            correct = labelB.getText();
 
         else if (question.questions_list.get(loopCounter).answer.c)
             correct = labelC.getText();

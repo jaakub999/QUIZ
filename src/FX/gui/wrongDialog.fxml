@@ -11,7 +11,7 @@
                 <Font name="System Bold" size="36.0" />
             </font>
         </Text>
-        <Label fx:id="correctAnswer" layoutX="11.0" layoutY="75.0" prefHeight="22.0" prefWidth="297.0" />
+        <Label fx:id="correctAnswer" layoutX="10.0" layoutY="64.0" prefHeight="22.0" prefWidth="297.0" />
         <Button fx:id="dialogButton" layoutX="119.0" layoutY="138.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="79.0" text="OK" AnchorPane.bottomAnchor="14.600000000000001">
             <font>
                 <Font name="System Bold" size="14.0" />

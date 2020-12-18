@@ -83,7 +83,7 @@ public class InitQuestionsController implements Initializable {
         checkD.setToggleGroup(group);
         checkA.setSelected(true);
 
-        number.setText(String.valueOf(questions.questions_list.size()));
+        number.setText("Ilość pytań: " + questions.questions_list.size());
 
         addButton.setOnAction(event -> addData());
         resetButton.setOnAction(event -> reset());
@@ -208,7 +208,7 @@ public class InitQuestionsController implements Initializable {
         else {
             if (imageCheck.isSelected()) {
                 if (!pathLabel.getText().equals("")) {
-                    questions.editQuestion(text, points, answer, null, index);
+                    questions.editQuestion(text, points, answer, pathLabel.getText(), index);
                     InitQuestionsController refresh = new InitQuestionsController(stage, players, questions);
                 }
 
@@ -251,12 +251,64 @@ public class InitQuestionsController implements Initializable {
             pathLabel.setText(questions.questions_list.get(index).imagePath);
         }
 
+        else {
+            imageCheck.setSelected(false);
+            pathLabel.setText(null);
+        }
+
         errorLabel.setText(null);
     }
 
     private void saveData() {
+        textQ.setDisable(true);
+        textFieldA.setDisable(true);
+        textFieldB.setDisable(true);
+        textFieldC.setDisable(true);
+        textFieldD.setDisable(true);
+        checkA.setDisable(true);
+        checkB.setDisable(true);
+        checkC.setDisable(true);
+        checkD.setDisable(true);
+        addButton.setDisable(true);
+        resetButton.setDisable(true);
+        removeButton.setDisable(true);
+        nextButton.setDisable(true);
+        chooseImageButton.setDisable(true);
+        editButton.setDisable(true);
+        saveButton.setDisable(true);
+        loadButton.setDisable(true);
+        pointsSpinner.setDisable(true);
+        questionComboBox.setDisable(true);
+        number.setDisable(true);
+        pathLabel.setDisable(true);
+        imageCheck.setDisable(true);
+        errorLabel.setText(null);
+
         saveController output = new saveController(questions);
         output.stage.showAndWait();
+
+        textQ.setDisable(false);
+        textFieldA.setDisable(false);
+        textFieldB.setDisable(false);
+        textFieldC.setDisable(false);
+        textFieldD.setDisable(false);
+        checkA.setDisable(false);
+        checkB.setDisable(false);
+        checkC.setDisable(false);
+        checkD.setDisable(false);
+        addButton.setDisable(false);
+        resetButton.setDisable(false);
+        removeButton.setDisable(false);
+        nextButton.setDisable(false);
+        chooseImageButton.setDisable(false);
+        editButton.setDisable(false);
+        saveButton.setDisable(false);
+        loadButton.setDisable(false);
+        pointsSpinner.setDisable(false);
+        questionComboBox.setDisable(false);
+        number.setDisable(false);
+        pathLabel.setDisable(false);
+        imageCheck.setDisable(false);
     }
 
     private void loadData() {

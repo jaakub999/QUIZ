@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
@@ -16,6 +17,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 public class saveController implements Initializable {
@@ -27,6 +30,7 @@ public class saveController implements Initializable {
     @FXML private Button confirmButton;
     @FXML private TextField pathTextField;
     @FXML private TextField saveTextField;
+    @FXML private Label errorLabel;
     @FXML private Text dialogText2;
 
     public saveController(QuestionContainer questions) {
@@ -63,26 +67,43 @@ public class saveController implements Initializable {
     }
 
     private void writeObjectToFile() {
-        String filepath = pathTextField.getText() + "\\" + saveTextField.getText() + ".bin";
+        if (pathTextField.getText().equals("") && saveTextField.getText().equals(""))
+            errorLabel.setText("Nie podałeś ścieżki i nazwy zapisu!");
 
-        try {
-            FileOutputStream fileOut = new FileOutputStream(filepath);
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-            objectOut.writeObject(questions);
-            objectOut.close();
+        else if (pathTextField.getText().equals(""))
+            errorLabel.setText("Nie podałeś ścieżki!");
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        else if (saveTextField.getText().equals(""))
+            errorLabel.setText("Nie podałeś nazwy zapisu!");
+
+        else {
+            if (!Files.exists(Paths.get(pathTextField.getText())))
+                errorLabel.setText("Podana ścieżka jest nieprawidłowa!");
+
+            else {
+                String filepath = pathTextField.getText() + "\\" + saveTextField.getText() + ".bin";
+
+                try {
+                    FileOutputStream fileOut = new FileOutputStream(filepath);
+                    ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+                    objectOut.writeObject(questions);
+                    objectOut.close();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                saveButton.setVisible(false);
+                pathButton.setVisible(false);
+                cancelButton.setVisible(false);
+                pathTextField.setVisible(false);
+                saveTextField.setVisible(false);
+                errorLabel.setVisible(false);
+                confirmButton.setVisible(true);
+                dialogText2.setVisible(true);
+                dialogText2.setText("Zapisano pomyślnie!");
+            }
         }
-
-        saveButton.setVisible(false);
-        pathButton.setVisible(false);
-        cancelButton.setVisible(false);
-        pathTextField.setVisible(false);
-        saveTextField.setVisible(false);
-        confirmButton.setVisible(true);
-        dialogText2.setVisible(true);
-        dialogText2.setText("Zapisano pomyślnie!");
     }
 
     private void back() {
