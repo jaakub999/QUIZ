@@ -260,55 +260,10 @@ public class InitQuestionsController implements Initializable {
     }
 
     private void saveData() {
-        textQ.setDisable(true);
-        textFieldA.setDisable(true);
-        textFieldB.setDisable(true);
-        textFieldC.setDisable(true);
-        textFieldD.setDisable(true);
-        checkA.setDisable(true);
-        checkB.setDisable(true);
-        checkC.setDisable(true);
-        checkD.setDisable(true);
-        addButton.setDisable(true);
-        resetButton.setDisable(true);
-        removeButton.setDisable(true);
-        nextButton.setDisable(true);
-        chooseImageButton.setDisable(true);
-        editButton.setDisable(true);
-        saveButton.setDisable(true);
-        loadButton.setDisable(true);
-        pointsSpinner.setDisable(true);
-        questionComboBox.setDisable(true);
-        number.setDisable(true);
-        pathLabel.setDisable(true);
-        imageCheck.setDisable(true);
-        errorLabel.setText(null);
-
-        saveController output = new saveController(questions);
+        mainPane.setDisable(true);
+        SaveController output = new SaveController(questions);
         output.stage.showAndWait();
-
-        textQ.setDisable(false);
-        textFieldA.setDisable(false);
-        textFieldB.setDisable(false);
-        textFieldC.setDisable(false);
-        textFieldD.setDisable(false);
-        checkA.setDisable(false);
-        checkB.setDisable(false);
-        checkC.setDisable(false);
-        checkD.setDisable(false);
-        addButton.setDisable(false);
-        resetButton.setDisable(false);
-        removeButton.setDisable(false);
-        nextButton.setDisable(false);
-        chooseImageButton.setDisable(false);
-        editButton.setDisable(false);
-        saveButton.setDisable(false);
-        loadButton.setDisable(false);
-        pointsSpinner.setDisable(false);
-        questionComboBox.setDisable(false);
-        number.setDisable(false);
-        pathLabel.setDisable(false);
-        imageCheck.setDisable(false);
+        mainPane.setDisable(false);
     }
 
     private void loadData() {
