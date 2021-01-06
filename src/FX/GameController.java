@@ -124,8 +124,8 @@ public class GameController implements Initializable {
     private void initQuestion() {
         questionArea.setText("Pytanie " + (iteration + 1) + " z " + question.questions_list.size() +
                                 "\t\t(" + question.questions_list.get(iteration).points + "pkt)" +
-                                "\nKategoria:\t\t" + question.questions_list.get(iteration).category +
-                                "\nPoziom:\t\t\t" + question.questions_list.get(iteration).level +
+                                //"\nKategoria:\t\t" + question.questions_list.get(iteration).category + (not done yet)
+                                //"\nPoziom:\t\t\t" + question.questions_list.get(iteration).level + (not done yet)
                                 "\n\n" + question.questions_list.get(iteration).text);
 
         labelA.setText(question.questions_list.get(iteration).answer.A);
