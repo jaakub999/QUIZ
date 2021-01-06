@@ -21,7 +21,7 @@ import java.net.URL;
 import java.util.*;
 
 public class GameController implements Initializable {
-    public static int iteration = 0;
+    private static int iteration = 0;
     public final Stage stage;
     public PlayerContainer players;
     public QuestionContainer question;
