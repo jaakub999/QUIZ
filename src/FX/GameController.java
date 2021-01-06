@@ -10,7 +10,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.ImageView;;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 import java.io.File;
@@ -19,14 +21,16 @@ import java.net.URL;
 import java.util.*;
 
 public class GameController implements Initializable {
+    public static int iteration = 0;
     public final Stage stage;
     public PlayerContainer players;
     public QuestionContainer question;
-    public int loopCounter;
     private final ObservableList<GameTableView> player_data;
-    private final ToggleGroup group = new ToggleGroup();
+    private final ToggleGroup group;
     private final Set<Map.Entry<String, Player>> entrySet;
     private Player[] players_tab;
+    @FXML private AnchorPane mainPane;
+    @FXML private HBox answerBox;
     @FXML private TextArea questionArea;
     @FXML private TableView<GameTableView> table;
     @FXML private TableColumn<GameTableView, Integer> lp_column;
@@ -48,13 +52,12 @@ public class GameController implements Initializable {
 
     public GameController(Stage stage,
                           PlayerContainer players,
-                          QuestionContainer question,
-                          int loopCounter)
+                          QuestionContainer question)
     {
         this.stage = stage;
         this.players = players;
         this.question = question;
-        this.loopCounter = loopCounter;
+        group = new ToggleGroup();
         player_data = FXCollections.observableArrayList();
         players_tab = new Player[players.players_list.size()];
         entrySet = players.players_list.entrySet();
@@ -76,38 +79,12 @@ public class GameController implements Initializable {
         checkC.setToggleGroup(group);
         checkD.setToggleGroup(group);
 
-        checkA.setVisible(false);
-        checkB.setVisible(false);
-        checkC.setVisible(false);
-        checkD.setVisible(false);
-
-        labelA.setVisible(false);
-        labelB.setVisible(false);
-        labelC.setVisible(false);
-        labelD.setVisible(false);
-
         initPlayers();
         initQuestion();
 
-        enterButton.setOnAction(event -> {
-            try {
-                submit();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-
+        enterButton.setOnAction(event -> submit());
         showButton.setOnAction(event -> {
-            checkA.setVisible(true);
-            checkB.setVisible(true);
-            checkC.setVisible(true);
-            checkD.setVisible(true);
-
-            labelA.setVisible(true);
-            labelB.setVisible(true);
-            labelC.setVisible(true);
-            labelD.setVisible(true);
-
+            answerBox.setVisible(true);
             showButton.setVisible(false);
         });
 
@@ -145,22 +122,25 @@ public class GameController implements Initializable {
     }
 
     private void initQuestion() {
-        questionArea.setText("Pytanie " + (loopCounter + 1) + ":\n" + question.questions_list.get(loopCounter).text);
-        questionArea.setEditable(false);
+        questionArea.setText("Pytanie " + (iteration + 1) + " z " + question.questions_list.size() +
+                                "\t\t(" + question.questions_list.get(iteration).points + "pkt)" +
+                                "\nKategoria:\t\t" + question.questions_list.get(iteration).category +
+                                "\nPoziom:\t\t\t" + question.questions_list.get(iteration).level +
+                                "\n\n" + question.questions_list.get(iteration).text);
 
-        labelA.setText(question.questions_list.get(loopCounter).answer.A);
-        labelB.setText(question.questions_list.get(loopCounter).answer.B);
-        labelC.setText(question.questions_list.get(loopCounter).answer.C);
-        labelD.setText(question.questions_list.get(loopCounter).answer.D);
+        labelA.setText(question.questions_list.get(iteration).answer.A);
+        labelB.setText(question.questions_list.get(iteration).answer.B);
+        labelC.setText(question.questions_list.get(iteration).answer.C);
+        labelD.setText(question.questions_list.get(iteration).answer.D);
 
-        if (question.questions_list.get(loopCounter).imagePath != null) {
-            File file = new File(question.questions_list.get(loopCounter).imagePath);
+        if (question.questions_list.get(iteration).imagePath != null) {
+            File file = new File(question.questions_list.get(iteration).imagePath);
             Image image = new Image(file.toURI().toString());
             imageView.setImage(image);
         }
     }
 
-    private void submit() throws Exception {
+    private void submit() {
         GameTableView data = table.getSelectionModel().getSelectedItem();
         GameController refresh;
 
@@ -170,62 +150,62 @@ public class GameController implements Initializable {
 
             else {
                 if (checkA.isSelected()) {
-                    if (question.questions_list.get(loopCounter).answer.a) {
-                        players.players_list.get(data.getNickname()).addScore(question.questions_list.get(loopCounter).points);
+                    if (question.questions_list.get(iteration).answer.a) {
+                        players.players_list.get(data.getNickname()).addScore(question.questions_list.get(iteration).points);
                         correctAnswer();
                     } else {
                         players.players_list.get(data.getNickname()).lifes--;
                         wrongAnswer();
                     }
 
-                    loopCounter++;
-                    if (loopCounter < question.questions_list.size())
-                        refresh = new GameController(stage, players, question, loopCounter);
+                    iteration++;
+                    if (iteration < question.questions_list.size())
+                        refresh = new GameController(stage, players, question);
 
                     else
                         result();
                 } else if (checkB.isSelected()) {
-                    if (question.questions_list.get(loopCounter).answer.b) {
-                        players.players_list.get(data.getNickname()).addScore(question.questions_list.get(loopCounter).points);
+                    if (question.questions_list.get(iteration).answer.b) {
+                        players.players_list.get(data.getNickname()).addScore(question.questions_list.get(iteration).points);
                         correctAnswer();
                     } else {
                         players.players_list.get(data.getNickname()).lifes--;
                         wrongAnswer();
                     }
 
-                    loopCounter++;
-                    if (loopCounter < question.questions_list.size())
-                        refresh = new GameController(stage, players, question, loopCounter);
+                    iteration++;
+                    if (iteration < question.questions_list.size())
+                        refresh = new GameController(stage, players, question);
 
                     else
                         result();
                 } else if (checkC.isSelected()) {
-                    if (question.questions_list.get(loopCounter).answer.c) {
-                        players.players_list.get(data.getNickname()).addScore(question.questions_list.get(loopCounter).points);
+                    if (question.questions_list.get(iteration).answer.c) {
+                        players.players_list.get(data.getNickname()).addScore(question.questions_list.get(iteration).points);
                         correctAnswer();
                     } else {
                         players.players_list.get(data.getNickname()).lifes--;
                         wrongAnswer();
                     }
 
-                    loopCounter++;
-                    if (loopCounter < question.questions_list.size())
-                        refresh = new GameController(stage, players, question, loopCounter);
+                    iteration++;
+                    if (iteration < question.questions_list.size())
+                        refresh = new GameController(stage, players, question);
 
                     else
                         result();
                 } else if (checkD.isSelected()) {
-                    if (question.questions_list.get(loopCounter).answer.d) {
-                        players.players_list.get(data.getNickname()).addScore(question.questions_list.get(loopCounter).points);
+                    if (question.questions_list.get(iteration).answer.d) {
+                        players.players_list.get(data.getNickname()).addScore(question.questions_list.get(iteration).points);
                         correctAnswer();
                     } else {
                         players.players_list.get(data.getNickname()).lifes--;
                         wrongAnswer();
                     }
 
-                    loopCounter++;
-                    if (loopCounter < question.questions_list.size())
-                        refresh = new GameController(stage, players, question, loopCounter);
+                    iteration++;
+                    if (iteration < question.questions_list.size())
+                        refresh = new GameController(stage, players, question);
 
                     else
                         result();
@@ -249,65 +229,36 @@ public class GameController implements Initializable {
                     players_tab[i].lifes));
 
         table.setItems(player_data);
+        mainPane.setDisable(true);
         GameOverController gameOver = new GameOverController(player_data);
+        gameOver.stage.showAndWait();
         stage.close();
         StartController restart = new StartController();
         restart.stage.showAndWait();
     }
 
-    private void correctAnswer() throws Exception {
-        enterButton.setDisable(true);
-        table.setDisable(true);
-        checkA.setDisable(true);
-        checkB.setDisable(true);
-        checkC.setDisable(true);
-        checkD.setDisable(true);
-        labelA.setDisable(true);
-        labelB.setDisable(true);
-        labelC.setDisable(true);
-        labelD.setDisable(true);
-        questionArea.setDisable(true);
-        imageView.setDisable(true);
-
+    private void correctAnswer() {
+        mainPane.setDisable(true);
         AnswerController controller = new AnswerController(null);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("gui/goodDialog.fxml"));
-        loader.setController(controller);
-        controller.stage.setScene(new Scene(loader.load()));
-        controller.stage.showAndWait();
     }
 
-    private void wrongAnswer() throws Exception {
-        enterButton.setDisable(true);
-        table.setDisable(true);
-        checkA.setDisable(true);
-        checkB.setDisable(true);
-        checkC.setDisable(true);
-        checkD.setDisable(true);
-        labelA.setDisable(true);
-        labelB.setDisable(true);
-        labelC.setDisable(true);
-        labelD.setDisable(true);
-        questionArea.setDisable(true);
-        imageView.setDisable(true);
+    private void wrongAnswer() {
         String correct = null;
 
-        if (question.questions_list.get(loopCounter).answer.a)
+        if (question.questions_list.get(iteration).answer.a)
             correct = labelA.getText();
 
-        else if (question.questions_list.get(loopCounter).answer.b)
+        else if (question.questions_list.get(iteration).answer.b)
             correct = labelB.getText();
 
-        else if (question.questions_list.get(loopCounter).answer.c)
+        else if (question.questions_list.get(iteration).answer.c)
             correct = labelC.getText();
 
-        else if (question.questions_list.get(loopCounter).answer.d)
+        else if (question.questions_list.get(iteration).answer.d)
             correct = labelD.getText();
 
+        mainPane.setDisable(true);
         AnswerController controller = new AnswerController(correct);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("gui/wrongDialog.fxml"));
-        loader.setController(controller);
-        controller.stage.setScene(new Scene(loader.load()));
-        controller.stage.showAndWait();
     }
 
     private Player[] generatePlayersTab() {
