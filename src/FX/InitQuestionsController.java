@@ -24,7 +24,8 @@ public class InitQuestionsController implements Initializable {
     public PlayerContainer players;
     public QuestionContainer questions;
     private final ObservableList<String> questionID;
-    private final ToggleGroup group = new ToggleGroup();
+    private final ToggleGroup group;
+    @FXML private AnchorPane mainPane;
     @FXML private TextArea textQ;
     @FXML private TextField textFieldA;
     @FXML private TextField textFieldB;
@@ -56,6 +57,7 @@ public class InitQuestionsController implements Initializable {
         this.stage = stage;
         this.players = players;
         this.questions = questions;
+        group = new ToggleGroup();
         questionID = FXCollections.observableArrayList();
 
         try {
