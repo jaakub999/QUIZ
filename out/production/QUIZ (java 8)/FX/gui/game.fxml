@@ -19,14 +19,14 @@
             <children>
                 <Pane prefHeight="327.0" prefWidth="399.0">
                     <children>
-                        <TextArea fx:id="questionArea" prefHeight="265.0" prefWidth="399.0">
+                        <TextArea fx:id="questionArea" editable="false" prefHeight="265.0" prefWidth="399.0">
                             <font>
                                 <Font size="18.0" />
                             </font></TextArea>
                   <Button fx:id="showButton" layoutX="108.0" layoutY="278.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="184.0" text="Pokaż odpowiedzi" />
                     </children>
                 </Pane>
-                <HBox prefHeight="154.0" prefWidth="399.0">
+                <HBox fx:id="answerBox" prefHeight="154.0" prefWidth="399.0" visible="false">
                     <children>
                         <VBox prefHeight="191.0" prefWidth="75.0">
                             <children>

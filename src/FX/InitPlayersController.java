@@ -14,6 +14,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -23,6 +24,7 @@ public class InitPlayersController implements Initializable {
     public PlayerContainer players;
     public QuestionContainer questions;
     private final ObservableList<PlayersList> player_data;
+
     @FXML private TextField nick;
     @FXML private Button addButton;
     @FXML private Button resetButton;
@@ -58,6 +60,9 @@ public class InitPlayersController implements Initializable {
         for (Map.Entry<String, Player> entry: entrySet)
             player_data.add(new PlayersList(entry.getKey()));
 
+        Comparator<PlayersList> comparator = Comparator.comparing(PlayersList::getPlayer);
+        player_data.sort(comparator);
+
         player_column.setCellValueFactory(cellData -> cellData.getValue().playerProperty());
         player_column.setCellFactory(TextFieldTableCell.forTableColumn());
         table.setItems(player_data);
@@ -77,12 +82,7 @@ public class InitPlayersController implements Initializable {
         String player_nickname = nick.getText();
 
         if (!player_nickname.equals("")) {
-            nick.setText(null);
             players.addPlayer(player_nickname);
-            PlayersList item = new PlayersList(player_nickname);
-            player_data.add(item);
-            table.setItems(player_data);
-
             InitPlayersController refresh = new InitPlayersController(stage, players, questions);
         }
 

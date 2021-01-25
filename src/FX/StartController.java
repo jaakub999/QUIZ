@@ -19,6 +19,7 @@ public class StartController implements Initializable {
     public final Stage stage;
     public PlayerContainer players;
     public QuestionContainer questions;
+
     @FXML private Button startButton;
 
     public StartController() {

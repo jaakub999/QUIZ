@@ -14,7 +14,7 @@
             <font>
                 <Font size="18.0" />
             </font></Button>
-        <Spinner fx:id="lifeSpinner" editable="true" layoutX="353.0" layoutY="336.0" prefHeight="39.0" prefWidth="593.0" AnchorPane.leftAnchor="353.0" AnchorPane.rightAnchor="353.4" AnchorPane.topAnchor="336.0" />
+        <Spinner fx:id="chanceSpinner" editable="true" layoutX="353.0" layoutY="336.0" prefHeight="39.0" prefWidth="593.0" AnchorPane.leftAnchor="353.0" AnchorPane.rightAnchor="353.4" AnchorPane.topAnchor="336.0" />
         <Text fx:id="text" layoutX="256.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Podaj ilość szans, jaka będzie przysługiwała graczom!" textAlignment="CENTER" wrappingWidth="787.3999999999999" AnchorPane.leftAnchor="255.39999999999986" AnchorPane.rightAnchor="256.60000000000014" AnchorPane.topAnchor="58.15234375">
             <font>
                 <Font name="System Bold" size="36.0" />

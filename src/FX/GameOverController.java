@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 public class GameOverController implements Initializable  {
     public final Stage stage;
     private final ObservableList<GameTableView> data;
+
     @FXML private Label label11;
     @FXML private Label label12;
     @FXML private Label label13;
@@ -40,36 +41,32 @@ public class GameOverController implements Initializable  {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        stage.showAndWait();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        dialogButton.setOnAction(event -> stage.close());
+
         if (data.size() >= 1) {
             label11.setText("1 miejsce:");
             label21.setText(data.get(0).getNickname());
-            label31.setText(String.valueOf(data.get(0).getScore()) + "pkt");
+            label31.setText(data.get(0).getScore() + "pkt");
 
             if (data.size() >= 2) {
                 label22.setText(data.get(1).getNickname());
-                label32.setText(String.valueOf(data.get(1).getScore()) + "pkt");
+                label32.setText(data.get(1).getScore() + "pkt");
 
                 if (data.get(1).getScore() != data.get(0).getScore())
                     label12.setText("2 miejsce:");
 
                 if (data.size() >= 3){
                     label23.setText(data.get(2).getNickname());
-                    label33.setText(String.valueOf(data.get(2).getScore()) + "pkt");
+                    label33.setText(data.get(2).getScore() + "pkt");
 
                     if (data.get(2).getScore() != data.get(1).getScore())
                         label13.setText("3 miejsce:");
                 }
             }
         }
-
-        dialogButton.setOnAction(event -> {
-            stage.close();
-        });
     }
 }

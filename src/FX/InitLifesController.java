@@ -12,7 +12,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,7 +24,8 @@ public class InitLifesController implements Initializable {
     public PlayerContainer players;
     public QuestionContainer questions;
     public Set<Map.Entry<String, Player>> entrySet;
-    @FXML private Spinner<Integer> lifeSpinner;
+
+    @FXML private Spinner<Integer> chanceSpinner;
     @FXML private Button nextButton;
     @FXML private Button backButton;
 
@@ -51,12 +51,12 @@ public class InitLifesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Map.Entry<String, Player> entry = players.players_list.entrySet().iterator().next();
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, entry.getValue().lifes);
-        lifeSpinner.setValueFactory(valueFactory);
-        lifeSpinner.setTooltip(new Tooltip("> 100 = 100\n< 1 = 1"));
-        lifeSpinner.focusedProperty().addListener((observable, oldValue, newValue) -> {
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, entry.getValue().getChances());
+        chanceSpinner.setValueFactory(valueFactory);
+        chanceSpinner.setTooltip(new Tooltip("> 100 = 100\n< 1 = 1"));
+        chanceSpinner.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue)
-                lifeSpinner.increment(0);
+                chanceSpinner.increment(0);
                 });
 
         backButton.setOnAction(event -> backToPreviousLayout());
@@ -66,9 +66,9 @@ public class InitLifesController implements Initializable {
 
     private void openLayout() {
         for (Map.Entry<String, Player> entry: entrySet)
-            entry.getValue().lifes = lifeSpinner.getValue();
+            entry.getValue().setChances(chanceSpinner.getValue());
 
-        GameController controller = new GameController(stage, players, questions);
+        OptionsController controller = new OptionsController(stage, players, questions);
     }
 
     private void backToPreviousLayout() {

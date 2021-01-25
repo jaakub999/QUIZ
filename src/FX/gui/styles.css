@@ -188,6 +188,21 @@
     -fx-border-color: #ff9900;
 }
 
+.slider .track {
+    -fx-background-color: transparent;
+    -fx-border-color: #ffffff;;
+}
+
+.slider .thumb {
+    -fx-background-color: #000000;
+    -fx-border-color: #ffffff;
+    -fx-border-radius: 18 18 18 18;
+}
+
+.slider .thumb:hover {
+    -fx-cursor: hand;
+}
+
 .table-view .column-header-background .filler {
     -fx-background-color: transparent;
 }

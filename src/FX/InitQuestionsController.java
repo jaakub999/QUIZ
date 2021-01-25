@@ -1,6 +1,7 @@
 package FX;
 
 import api.*;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -10,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
@@ -24,13 +26,16 @@ public class InitQuestionsController implements Initializable {
     public PlayerContainer players;
     public QuestionContainer questions;
     private final ObservableList<String> questionID;
+    private final SpinnerValueFactory<Level> valueFactory;
     private final ToggleGroup group;
+
     @FXML private AnchorPane mainPane;
     @FXML private TextArea textQ;
     @FXML private TextField textFieldA;
     @FXML private TextField textFieldB;
     @FXML private TextField textFieldC;
     @FXML private TextField textFieldD;
+    @FXML private TextField categoryField;
     @FXML private RadioButton checkA;
     @FXML private RadioButton checkB;
     @FXML private RadioButton checkC;
@@ -43,11 +48,13 @@ public class InitQuestionsController implements Initializable {
     @FXML private Button editButton;
     @FXML private Button saveButton;
     @FXML private Button loadButton;
-    @FXML private Spinner<Integer> pointsSpinner;
+    @FXML private Spinner<Level> levelSpinner;
+    @FXML private Slider pointsSlider;
     @FXML private ComboBox<String> questionComboBox;
     @FXML private Label number;
     @FXML private Label pathLabel;
     @FXML private Label errorLabel;
+    @FXML private Label pointsValue;
     @FXML private CheckBox imageCheck;
 
     public InitQuestionsController(Stage stage,
@@ -59,6 +66,9 @@ public class InitQuestionsController implements Initializable {
         this.questions = questions;
         group = new ToggleGroup();
         questionID = FXCollections.observableArrayList();
+        ObservableList<Level> levels = FXCollections.observableArrayList(Level.EASY, Level.MEDIUM, Level.HARD, Level.VERY_HARD);
+        valueFactory =  new SpinnerValueFactory.ListSpinnerValueFactory<Level>(levels);
+        valueFactory.setValue(Level.EASY);
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("gui/questions.fxml"));
@@ -67,23 +77,36 @@ public class InitQuestionsController implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
+
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle(null);
+                alert.setHeaderText("Błąd!");
+                alert.setContentText("Wybrany plik nie jest obsługiwany przez program lub jest niekompatybilny z obecną wersją programu!");
+                alert.showAndWait();
+            });
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1);
-        pointsSpinner.setValueFactory(valueFactory);
-        pointsSpinner.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue)
-                pointsSpinner.increment(0);
+        levelSpinner.setValueFactory(valueFactory);
+
+        pointsSlider.setMax(10);
+        pointsSlider.setMin(1);
+        pointsSlider.setBlockIncrement(1);
+
+        pointsSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                pointsValue.setText(String.valueOf(Math.round((Double) newValue)));
+            }
         });
 
         checkA.setToggleGroup(group);
         checkB.setToggleGroup(group);
         checkC.setToggleGroup(group);
         checkD.setToggleGroup(group);
-        checkA.setSelected(true);
 
         number.setText("Ilość pytań: " + questions.questions_list.size());
 
@@ -100,15 +123,15 @@ public class InitQuestionsController implements Initializable {
         resetButton.setTooltip(new Tooltip("Usuń wszystkie pytania"));
         removeButton.setTooltip(new Tooltip("Usuń wybrane pytanie"));
         editButton.setTooltip(new Tooltip("Nadpisz wybrane pytanie"));
-        chooseImageButton.setVisible(false);
-        editButton.setVisible(false);
+        saveButton.setTooltip(new Tooltip("Zapisz utworzony zestaw pytań"));
+        loadButton.setTooltip(new Tooltip("Wczytaj zestaw pytań"));
 
         for (int i = 0; i < questions.questions_list.size(); i++) {
-            if (questions.questions_list.get(i).text.length() < 12)
-                questionID.add(i + 1 + ". " + questions.questions_list.get(i).text);
+            if (questions.questions_list.get(i).getText().length() < 12)
+                questionID.add(i + 1 + ". " + questions.questions_list.get(i).getText());
 
             else
-                questionID.add((i + 1 + ". " + questions.questions_list.get(i).text).substring(0, 12) + "...");
+                questionID.add((i + 1 + ". " + questions.questions_list.get(i).getText()).substring(0, 12) + "...");
         }
 
         questionComboBox.setItems(questionID);
@@ -132,13 +155,21 @@ public class InitQuestionsController implements Initializable {
     }
 
     private void addData() {
-        int points = pointsSpinner.getValue();
+        int points = (int) pointsSlider.getValue();
         String text = textQ.getText().replaceAll("\n", System.getProperty("line.separator"));
         String A = textFieldA.getText();
         String B = textFieldB.getText();
         String C = textFieldC.getText();
         String D = textFieldD.getText();
+        String category;
         Answer answer = new Answer(A, B, C, D);
+        Level level = levelSpinner.getValue();
+
+        if (!categoryField.getText().equals(""))
+            category = categoryField.getText();
+
+        else
+            category = "brak";
 
         if (checkA.isSelected())
             answer.setA();
@@ -158,7 +189,7 @@ public class InitQuestionsController implements Initializable {
         else {
             if (imageCheck.isSelected()) {
                 if (!pathLabel.getText().equals("")) {
-                    questions.addQuestion(text, points, answer, pathLabel.getText());
+                    questions.addQuestion(text, category, level, points, answer, pathLabel.getText());
                     InitQuestionsController refresh = new InitQuestionsController(stage, players, questions);
                 }
 
@@ -167,7 +198,7 @@ public class InitQuestionsController implements Initializable {
             }
 
             else {
-                questions.addQuestion(text, points, answer, null);
+                questions.addQuestion(text, category, level, points, answer, null);
                 InitQuestionsController refresh = new InitQuestionsController(stage, players, questions);
             }
         }
@@ -184,13 +215,21 @@ public class InitQuestionsController implements Initializable {
 
     private void editData() {
         int index = questionComboBox.getSelectionModel().getSelectedIndex();
-        int points = pointsSpinner.getValue();
+        int points = (int) pointsSlider.getValue();
         String text = textQ.getText().replaceAll("\n", System.getProperty("line.separator"));
         String A = textFieldA.getText();
         String B = textFieldB.getText();
         String C = textFieldC.getText();
         String D = textFieldD.getText();
+        String category;
         Answer answer = new Answer(A, B, C, D);
+        Level level = levelSpinner.getValue();
+
+        if (!categoryField.getText().equals(""))
+            category = categoryField.getText();
+
+        else
+            category = "brak";
 
         if (checkA.isSelected())
             answer.setA();
@@ -210,7 +249,7 @@ public class InitQuestionsController implements Initializable {
         else {
             if (imageCheck.isSelected()) {
                 if (!pathLabel.getText().equals("")) {
-                    questions.editQuestion(text, points, answer, pathLabel.getText(), index);
+                    questions.editQuestion(text, category, level, points, answer, pathLabel.getText(), index);
                     InitQuestionsController refresh = new InitQuestionsController(stage, players, questions);
                 }
 
@@ -219,7 +258,7 @@ public class InitQuestionsController implements Initializable {
             }
 
             else {
-                questions.editQuestion(text, points, answer, null, index);
+                questions.editQuestion(text, category, level, points, answer, null, index);
                 InitQuestionsController refresh = new InitQuestionsController(stage, players, questions);
             }
         }
@@ -227,30 +266,34 @@ public class InitQuestionsController implements Initializable {
 
     private void chooseQuestion() {
         int index = questionComboBox.getSelectionModel().getSelectedIndex();
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, questions.questions_list.get(index).points);
-        pointsSpinner.setValueFactory(valueFactory);
-        textQ.setText(questions.questions_list.get(index).text);
-        textFieldA.setText(questions.questions_list.get(index).answer.A);
-        textFieldB.setText(questions.questions_list.get(index).answer.B);
-        textFieldC.setText(questions.questions_list.get(index).answer.C);
-        textFieldD.setText(questions.questions_list.get(index).answer.D);
+        valueFactory.setValue(questions.questions_list.get(index).getLevel());
+        levelSpinner.setValueFactory(valueFactory);
+        pointsSlider.setValue(questions.questions_list.get(index).getPoints());
+        textQ.setText(questions.questions_list.get(index).getText());
+        textFieldA.setText(questions.questions_list.get(index).getAnswer().A);
+        textFieldB.setText(questions.questions_list.get(index).getAnswer().B);
+        textFieldC.setText(questions.questions_list.get(index).getAnswer().C);
+        textFieldD.setText(questions.questions_list.get(index).getAnswer().D);
         editButton.setVisible(true);
 
-        if (questions.questions_list.get(index).answer.a)
+        if (questions.questions_list.get(index).getAnswer().a)
             checkA.setSelected(true);
 
-        else if (questions.questions_list.get(index).answer.b)
+        else if (questions.questions_list.get(index).getAnswer().b)
             checkB.setSelected(true);
 
-        else if (questions.questions_list.get(index).answer.c)
+        else if (questions.questions_list.get(index).getAnswer().c)
             checkC.setSelected(true);
 
-        else if (questions.questions_list.get(index).answer.d)
+        else if (questions.questions_list.get(index).getAnswer().d)
             checkD.setSelected(true);
 
-        if (questions.questions_list.get(index).imagePath != null) {
+        if (questions.questions_list.get(index).getLevel() == Level.EASY)
+
+
+        if (questions.questions_list.get(index).getImagePath() != null) {
             imageCheck.setSelected(true);
-            pathLabel.setText(questions.questions_list.get(index).imagePath);
+            pathLabel.setText(questions.questions_list.get(index).getImagePath());
         }
 
         else {

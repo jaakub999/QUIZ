@@ -21,7 +21,8 @@ import java.net.URL;
 import java.util.*;
 
 public class GameController implements Initializable {
-    private static int iteration = 0;
+    static int ITERATION;
+
     public final Stage stage;
     public PlayerContainer players;
     public QuestionContainer question;
@@ -29,6 +30,7 @@ public class GameController implements Initializable {
     private final ToggleGroup group;
     private final Set<Map.Entry<String, Player>> entrySet;
     private Player[] players_tab;
+
     @FXML private AnchorPane mainPane;
     @FXML private HBox answerBox;
     @FXML private TextArea questionArea;
@@ -104,37 +106,37 @@ public class GameController implements Initializable {
         score_column.setCellFactory(TextFieldTableCell.<GameTableView, Integer>forTableColumn(new IntegerStringConverter()));
         life_column.setCellFactory(TextFieldTableCell.<GameTableView, Integer>forTableColumn(new IntegerStringConverter()));
 
-        int k = 0;
+        int outOfChance = 0;
         for (int i = 0; i < players_tab.length; i++) {
             player_data.add(new GameTableView(i + 1,
-                    players_tab[i].nickname,
-                    players_tab[i].score,
-                    players_tab[i].lifes));
+                    players_tab[i].getNickname(),
+                    players_tab[i].getScore(),
+                    players_tab[i].getChances()));
 
-            if (players_tab[i].lifes == 0)
-                k++;
+            if (players_tab[i].getChances() == 0)
+                outOfChance++;
         }
 
         table.setItems(player_data);
 
-        if (k == players_tab.length)
+        if (outOfChance == players_tab.length)
             result();
     }
 
     private void initQuestion() {
-        questionArea.setText("Pytanie " + (iteration + 1) + " z " + question.questions_list.size() +
-                                "\t\t(" + question.questions_list.get(iteration).points + "pkt)" +
-                                //"\nKategoria:\t\t" + question.questions_list.get(iteration).category + (not done yet)
-                                //"\nPoziom:\t\t\t" + question.questions_list.get(iteration).level + (not done yet)
-                                "\n\n" + question.questions_list.get(iteration).text);
+        questionArea.setText("Pytanie " + (ITERATION + 1) + " z " + question.questions_list.size() +
+                                "\t\t(" + question.questions_list.get(ITERATION).getPoints() + "pkt)" +
+                                "\nKategoria:\t\t" + question.questions_list.get(ITERATION).getCategory() +
+                                "\nPoziom:\t\t\t" + question.questions_list.get(ITERATION).getLevel() +
+                                "\n\n" + question.questions_list.get(ITERATION).getText());
 
-        labelA.setText(question.questions_list.get(iteration).answer.A);
-        labelB.setText(question.questions_list.get(iteration).answer.B);
-        labelC.setText(question.questions_list.get(iteration).answer.C);
-        labelD.setText(question.questions_list.get(iteration).answer.D);
+        labelA.setText(question.questions_list.get(ITERATION).getAnswer().A);
+        labelB.setText(question.questions_list.get(ITERATION).getAnswer().B);
+        labelC.setText(question.questions_list.get(ITERATION).getAnswer().C);
+        labelD.setText(question.questions_list.get(ITERATION).getAnswer().D);
 
-        if (question.questions_list.get(iteration).imagePath != null) {
-            File file = new File(question.questions_list.get(iteration).imagePath);
+        if (question.questions_list.get(ITERATION).getImagePath() != null) {
+            File file = new File(question.questions_list.get(ITERATION).getImagePath());
             Image image = new Image(file.toURI().toString());
             imageView.setImage(image);
         }
@@ -150,61 +152,61 @@ public class GameController implements Initializable {
 
             else {
                 if (checkA.isSelected()) {
-                    if (question.questions_list.get(iteration).answer.a) {
-                        players.players_list.get(data.getNickname()).addScore(question.questions_list.get(iteration).points);
+                    if (question.questions_list.get(ITERATION).getAnswer().a) {
+                        players.players_list.get(data.getNickname()).addScore(question.questions_list.get(ITERATION).getPoints());
                         correctAnswer();
                     } else {
-                        players.players_list.get(data.getNickname()).lifes--;
+                        players.players_list.get(data.getNickname()).chanceDecrement();
                         wrongAnswer();
                     }
 
-                    iteration++;
-                    if (iteration < question.questions_list.size())
+                    ITERATION++;
+                    if (ITERATION < question.questions_list.size())
                         refresh = new GameController(stage, players, question);
 
                     else
                         result();
                 } else if (checkB.isSelected()) {
-                    if (question.questions_list.get(iteration).answer.b) {
-                        players.players_list.get(data.getNickname()).addScore(question.questions_list.get(iteration).points);
+                    if (question.questions_list.get(ITERATION).getAnswer().b) {
+                        players.players_list.get(data.getNickname()).addScore(question.questions_list.get(ITERATION).getPoints());
                         correctAnswer();
                     } else {
-                        players.players_list.get(data.getNickname()).lifes--;
+                        players.players_list.get(data.getNickname()).chanceDecrement();
                         wrongAnswer();
                     }
 
-                    iteration++;
-                    if (iteration < question.questions_list.size())
+                    ITERATION++;
+                    if (ITERATION < question.questions_list.size())
                         refresh = new GameController(stage, players, question);
 
                     else
                         result();
                 } else if (checkC.isSelected()) {
-                    if (question.questions_list.get(iteration).answer.c) {
-                        players.players_list.get(data.getNickname()).addScore(question.questions_list.get(iteration).points);
+                    if (question.questions_list.get(ITERATION).getAnswer().c) {
+                        players.players_list.get(data.getNickname()).addScore(question.questions_list.get(ITERATION).getPoints());
                         correctAnswer();
                     } else {
-                        players.players_list.get(data.getNickname()).lifes--;
+                        players.players_list.get(data.getNickname()).chanceDecrement();
                         wrongAnswer();
                     }
 
-                    iteration++;
-                    if (iteration < question.questions_list.size())
+                    ITERATION++;
+                    if (ITERATION < question.questions_list.size())
                         refresh = new GameController(stage, players, question);
 
                     else
                         result();
                 } else if (checkD.isSelected()) {
-                    if (question.questions_list.get(iteration).answer.d) {
-                        players.players_list.get(data.getNickname()).addScore(question.questions_list.get(iteration).points);
+                    if (question.questions_list.get(ITERATION).getAnswer().d) {
+                        players.players_list.get(data.getNickname()).addScore(question.questions_list.get(ITERATION).getPoints());
                         correctAnswer();
                     } else {
-                        players.players_list.get(data.getNickname()).lifes--;
+                        players.players_list.get(data.getNickname()).chanceDecrement();
                         wrongAnswer();
                     }
 
-                    iteration++;
-                    if (iteration < question.questions_list.size())
+                    ITERATION++;
+                    if (ITERATION < question.questions_list.size())
                         refresh = new GameController(stage, players, question);
 
                     else
@@ -224,9 +226,9 @@ public class GameController implements Initializable {
 
         for (int i = 0; i < players_tab.length; i++)
             player_data.add(new GameTableView(i + 1,
-                    players_tab[i].nickname,
-                    players_tab[i].score,
-                    players_tab[i].lifes));
+                    players_tab[i].getNickname(),
+                    players_tab[i].getScore(),
+                    players_tab[i].getChances()));
 
         table.setItems(player_data);
         mainPane.setDisable(true);
@@ -245,16 +247,16 @@ public class GameController implements Initializable {
     private void wrongAnswer() {
         String correct = null;
 
-        if (question.questions_list.get(iteration).answer.a)
+        if (question.questions_list.get(ITERATION).getAnswer().a)
             correct = labelA.getText();
 
-        else if (question.questions_list.get(iteration).answer.b)
+        else if (question.questions_list.get(ITERATION).getAnswer().b)
             correct = labelB.getText();
 
-        else if (question.questions_list.get(iteration).answer.c)
+        else if (question.questions_list.get(ITERATION).getAnswer().c)
             correct = labelC.getText();
 
-        else if (question.questions_list.get(iteration).answer.d)
+        else if (question.questions_list.get(ITERATION).getAnswer().d)
             correct = labelD.getText();
 
         mainPane.setDisable(true);
@@ -276,7 +278,7 @@ public class GameController implements Initializable {
             change = false;
 
             for (i = 0; i < tab.length - 1; i++) {
-                if (tab[i].score < tab[i + 1].score) {
+                if (tab[i].getScore() < tab[i + 1].getScore()) {
                     temp = tab[i];
                     tab[i] = tab[i + 1];
                     tab[i + 1] = temp;
