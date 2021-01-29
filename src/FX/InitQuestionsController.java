@@ -288,9 +288,6 @@ public class InitQuestionsController implements Initializable {
         else if (questions.questions_list.get(index).getAnswer().d)
             checkD.setSelected(true);
 
-        if (questions.questions_list.get(index).getLevel() == Level.EASY)
-
-
         if (questions.questions_list.get(index).getImagePath() != null) {
             imageCheck.setSelected(true);
             pathLabel.setText(questions.questions_list.get(index).getImagePath());
